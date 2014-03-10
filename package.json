@@ -1,0 +1,35 @@
+{
+  "name": "circumflex",
+  "version": "0.0.0",
+  "description": "Express-based Web Application Framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inca/circumflex-node"
+  },
+  "author": "Boris Okunskiy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inca/circumflex-node/issues"
+  },
+  "dependencies": {
+    "express": "*",
+    "moment": "*",
+    "multiparty": "*",
+    "flatmap": "*",
+    "stylus": "*",
+    "nib": "*",
+    "sprintf": "*",
+    "connect-redis": "*",
+    "underscore": "*",
+    "ejs": "*",
+    "i18n-2": "*",
+    "debug": "*",
+    "stringex": "*",
+    "async": "*",
+    "optimist": "*",
+    "mkdirp": "*"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
