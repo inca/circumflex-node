@@ -30,6 +30,7 @@
     "mkdirp": "*"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "request": "*"
   }
 }

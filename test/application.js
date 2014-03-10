@@ -7,6 +7,10 @@ var Application = require('../lib/application')
 
 describe('Application API', function() {
 
+  it('is a function', function() {
+    assert.equal(typeof new Application(), 'function');
+  });
+
   it('should accept configuration or plain options object', function() {
     var conf = new Configuration({ port: 1234 });
     assert.equal(new Application({ port: 1234 }).conf.port, 1234);
