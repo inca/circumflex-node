@@ -240,4 +240,71 @@ describe('Request extensions', function() {
 
   });
 
+  describe('getMoment', function() {
+
+    var app = new Application();
+    var server = http.createServer(app);
+
+    before(function(cb) {
+      server.listen(app.conf.port, cb);
+    });
+
+    after(function(cb) {
+      server.close(cb);
+    });
+
+    app.get('/', function(req, res, next) {
+      var m = req.getMoment('foo', '2014-09-12');
+      res.send(m.dayOfYear().toString());
+    });
+
+    it('parses a Moment date', function(cb) {
+      request.get('http://localhost:8123/?foo=1988-01-29', function(err, res, body) {
+        if (err) return cb(err);
+        assert.equal(body, '29');
+        cb();
+      });
+    });
+
+    it('falls back to default value', function(cb) {
+      request.get('http://localhost:8123/?foo=abc', function(err, res, body) {
+        if (err) return cb(err);
+        assert.equal(body, '255');
+        cb();
+      });
+    });
+
+  });
+
+  describe('getMoments', function() {
+
+    var app = new Application();
+    var server = http.createServer(app);
+
+    before(function(cb) {
+      server.listen(app.conf.port, cb);
+    });
+
+    after(function(cb) {
+      server.close(cb);
+    });
+
+    app.get('/', function(req, res, next) {
+      var dates = req.getMoments('foo', '2014-09-12');
+      res.send(dates.map(function(m) {
+        return m.format('DD.MM.YY');
+      }).join(' '));
+    });
+
+    it('parses an array of Moment dates', function(cb) {
+      request.get('http://localhost:8123/?foo=1988-01-29&foo=1988-09-05',
+        function(err, res, body) {
+          if (err) return cb(err);
+          assert.equal(body, '29.01.88 05.09.88');
+          cb();
+        });
+    });
+
+  });
+
 });
