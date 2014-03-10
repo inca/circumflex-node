@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 
-var Conf = require('../lib/conf.js');
+var Conf = require('../lib/configuration');
 
 function withEnv(env, cb) {
   for (var key in env) {
