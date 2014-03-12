@@ -67,28 +67,32 @@ describe('Configuration API', function() {
     delete process.env.NODE_ENV;
   });
 
-  it('should compose origin from domain', function() {
+  it('should compose origin from provided options', function() {
     // The defaults are `http://127.0.0.1`
     var conf = new Conf();
     assert.equal(conf.origin, 'http://127.0.0.1');
-    // Overridden `domain`
+    // Overridden by `domain`
     conf = new Conf({
       domain: 'myapp.com'
     });
     assert.equal(conf.origin, 'http://myapp.com');
+    // Overridden by env variable
+    withEnv({ DOMAIN: 'mydomain.com' }, function() {
+      assert.equal(conf.origin, 'http://mydomain.com');
+    });
   });
 
   it('should compose static origin from provided options', function() {
     // The defaults are `//127.0.0.1`
     var conf = new Conf();
     assert.equal(conf.staticOrigin, '//127.0.0.1');
-    // `domain` is used if `staticDomain` is not overridden
+    // `domain` is used if `staticDomain` is not specified
     conf = new Conf({ domain: 'myapp.com'});
     assert.equal(conf.staticOrigin, '//myapp.com');
     // `staticDomain` overrides `domain`
     conf = new Conf({ domain: 'myapp.com', staticDomain: 'static.myapp' });
     assert.equal(conf.staticOrigin, '//static.myapp');
-    // finally, development conf overrides production
+    // development conf overrides production
     conf = new Conf({
       domain: 'myapp.com',
       staticDomain: 'static.myapp',
@@ -97,6 +101,35 @@ describe('Configuration API', function() {
       }
     });
     assert.equal(conf.staticOrigin, '//static.myapp.dev');
+    // finally, env variable overrides 'em all
+    withEnv({ 'STATIC_DOMAIN': 'static.domain' }, function() {
+      assert.equal(conf.staticOrigin, '//static.domain');
+    });
+  });
+
+  it('should compose secure origin from provided options', function() {
+    // The defaults are `https://127.0.0.1`
+    var conf = new Conf();
+    assert.equal(conf.secureOrigin, 'https://127.0.0.1');
+    // `domain` is used if `secureDomain` is not specified
+    conf = new Conf({ domain: 'myapp.com'});
+    assert.equal(conf.secureOrigin, 'https://myapp.com');
+    // `secureDomain` overrides `domain`
+    conf = new Conf({ domain: 'myapp.com', secureDomain: 'secure.myapp' });
+    assert.equal(conf.secureOrigin, 'https://secure.myapp');
+    // development conf overrides production
+    conf = new Conf({
+      domain: 'myapp.com',
+      secureDomain: 'secure.myapp',
+      development: {
+        secureDomain: 'secure.myapp.dev'
+      }
+    });
+    assert.equal(conf.secureOrigin, 'https://secure.myapp.dev');
+    // finally, env variable overrides 'em all
+    withEnv({ 'SECURE_DOMAIN': 'secure.domain' }, function() {
+      assert.equal(conf.secureOrigin, 'https://secure.domain');
+    });
   });
 
   it('should override key-wise values in development/production', function() {
