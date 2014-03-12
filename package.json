@@ -19,7 +19,6 @@
     "stylus": "*",
     "nib": "*",
     "sprintf": "*",
-    "connect-redis": "*",
     "underscore": "*",
     "ejs": "*",
     "i18n-2": "*",
@@ -27,7 +26,13 @@
     "stringex": "*",
     "async": "*",
     "optimist": "*",
-    "mkdirp": "*"
+    "mkdirp": "*",
+    "morgan": "*",
+    "cookie-parser": "*",
+    "express-session": "*",
+    "body-parser": "*",
+    "method-override": "*",
+    "connect-redis": "*"
   },
   "devDependencies": {
     "mocha": "*",
