@@ -21,24 +21,23 @@ function withProduction(cb) {
 describe('Configuration API', function() {
 
   it('should detect production environment', function() {
-    var conf = new Conf();
-    assert.equal(conf.production, false);
+    assert.equal(new Conf().production, false);
     withProduction(function() {
-      assert.equal(conf.production, true);
+      assert.equal(new Conf().production, true);
     });
   });
 
-  it('should return default port with no options passed', function() {
+  it('should return default values with no options passed', function() {
     var conf = new Conf();
     assert.equal(conf.port, 8123);
   });
 
-  it('should override port with options', function() {
+  it('should override default values with options', function() {
     var conf = new Conf({ port: 1234 });
     assert.equal(conf.port, 1234);
   });
 
-  it('should override port with env variables', function() {
+  it('should override default values with env variables', function() {
     withEnv({ PORT: 4321 }, function() {
       var conf = new Conf({ port: 1234 });
       assert.equal(conf.port, 4321);
@@ -55,16 +54,16 @@ describe('Configuration API', function() {
     assert.equal(conf.port, 4321);
   });
 
-  it('should ignore development object with NODE_ENV=production', function() {
-    process.env.NODE_ENV = 'production';
-    var conf = new Conf({
-      port: 1234,
-      development: {
-        port: 4321
-      }
+  it('should ignore development object in production', function() {
+    withProduction(function() {
+      var conf = new Conf({
+        port: 1234,
+        development: {
+          port: 4321
+        }
+      });
+      assert.equal(conf.port, 1234);
     });
-    assert.equal(conf.port, 1234);
-    delete process.env.NODE_ENV;
   });
 
   it('should compose origin from provided options', function() {
@@ -72,12 +71,11 @@ describe('Configuration API', function() {
     var conf = new Conf();
     assert.equal(conf.origin, 'http://127.0.0.1');
     // Overridden by `domain`
-    conf = new Conf({
-      domain: 'myapp.com'
-    });
+    conf = new Conf({ domain: 'myapp.com' });
     assert.equal(conf.origin, 'http://myapp.com');
     // Overridden by env variable
     withEnv({ DOMAIN: 'mydomain.com' }, function() {
+      conf = new Conf({ domain: 'myapp.com' });
       assert.equal(conf.origin, 'http://mydomain.com');
     });
   });
@@ -103,6 +101,13 @@ describe('Configuration API', function() {
     assert.equal(conf.staticOrigin, '//static.myapp.dev');
     // finally, env variable overrides 'em all
     withEnv({ 'STATIC_DOMAIN': 'static.domain' }, function() {
+      conf = new Conf({
+        domain: 'myapp.com',
+        staticDomain: 'static.myapp',
+        development: {
+          staticDomain: 'static.myapp.dev'
+        }
+      });
       assert.equal(conf.staticOrigin, '//static.domain');
     });
   });
@@ -128,6 +133,13 @@ describe('Configuration API', function() {
     assert.equal(conf.secureOrigin, 'https://secure.myapp.dev');
     // finally, env variable overrides 'em all
     withEnv({ 'SECURE_DOMAIN': 'secure.domain' }, function() {
+      conf = new Conf({
+        domain: 'myapp.com',
+        secureDomain: 'secure.myapp',
+        development: {
+          secureDomain: 'secure.myapp.dev'
+        }
+      });
       assert.equal(conf.secureOrigin, 'https://secure.domain');
     });
   });
@@ -141,6 +153,12 @@ describe('Configuration API', function() {
     });
     assert.equal(conf.port, 2222);
     withProduction(function() {
+      conf = new Conf({
+        port: {
+          development: 2222,
+          production: 3333
+        }
+      });
       assert.equal(conf.port, 3333);
     });
   });
