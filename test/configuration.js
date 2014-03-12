@@ -67,16 +67,15 @@ describe('Configuration API', function() {
     delete process.env.NODE_ENV;
   });
 
-  it('should compose origin from protocol and domain', function() {
+  it('should compose origin from domain', function() {
     // The defaults are `http://127.0.0.1`
     var conf = new Conf();
     assert.equal(conf.origin, 'http://127.0.0.1');
-    // Overridden by `ssl` and `domain`
+    // Overridden `domain`
     conf = new Conf({
-      ssl: true,
       domain: 'myapp.com'
     });
-    assert.equal(conf.origin, 'https://myapp.com');
+    assert.equal(conf.origin, 'http://myapp.com');
   });
 
   it('should compose static origin from provided options', function() {
