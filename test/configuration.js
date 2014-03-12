@@ -163,5 +163,27 @@ describe('Configuration API', function() {
     });
   });
 
+  it('should deflate nested objects', function() {
+    var conf = new Conf({
+      redis: {
+        host: {
+          development: 'redis.sandbox',
+          production: 'redis.live'
+        }
+      }
+    });
+    assert.equal(conf.redis.host, 'redis.sandbox');
+    withProduction(function() {
+      var conf = new Conf({
+        redis: {
+          host: {
+            development: 'redis.sandbox',
+            production: 'redis.live'
+          }
+        }
+      });
+      assert.equal(conf.redis.host, 'redis.live');
+    });
+  });
 
 });
