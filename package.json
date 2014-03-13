@@ -11,6 +11,7 @@
   "bugs": {
     "url": "https://github.com/inca/circumflex-node/issues"
   },
+  "main": "lib/index.js",
   "dependencies": {
     "express": "*",
     "moment": "*",
