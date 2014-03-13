@@ -2,7 +2,8 @@
 
 var assert = require('assert')
   , http = require('http')
-  , request = require('request');
+  , request = require('request')
+  , fs = require('fs');
 
 var Application = require('../lib/application')
   , Configuration = require('../lib/configuration');
@@ -198,6 +199,36 @@ describe('Simple Circumflex application', function() {
           assert.equal(body, '29.01.88 05.09.88');
           cb();
         });
+    });
+
+  });
+
+  describe('getFile', function() {
+
+    it('parses a single uploaded file', function(cb) {
+      var post = request.post('http://localhost:8123/getFile', function(err, res, body) {
+        if (err) return cb(err);
+        assert.equal(body, 'upload_me: Hi there, bro!');
+        cb();
+      });
+      var form = post.form();
+      form.append('file', fs.createReadStream(__dirname + '/mock/public/UPLOAD ME'));
+      form.append('file', fs.createReadStream(__dirname + '/mock/public/UPLOAD ME'));
+    });
+
+  });
+
+  describe('getFiles', function() {
+
+    it('parses multiple uploaded files', function(cb) {
+      var post = request.post('http://localhost:8123/getFiles', function(err, res, body) {
+        if (err) return cb(err);
+        assert.equal(body, 'upload_me: Hi there, bro!\nupload_me: Hi there, bro!');
+        cb();
+      });
+      var form = post.form();
+      form.append('files', fs.createReadStream(__dirname + '/mock/public/UPLOAD ME'));
+      form.append('files', fs.createReadStream(__dirname + '/mock/public/UPLOAD ME'));
     });
 
   });

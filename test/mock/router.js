@@ -1,6 +1,8 @@
 'use strict';
 
-var express = require('express');
+var express = require('express')
+  , fs = require('fs')
+  , async = require('async');
 
 var router = module.exports = new express.Router();
 
@@ -63,3 +65,29 @@ router.get('/getMoments', function(req, res, next) {
     return m.format('DD.MM.YY');
   }).join(' '));
 });
+
+// req.getFile
+
+router.post('/getFile', function(req, res, next) {
+  var file = req.getFile('file');
+  fs.readFile(file.path, function(err, text) {
+    if (err) return next(err);
+    res.send(file.safeName + ': ' + text);
+  });
+});
+
+// req.getFiles
+
+router.post('/getFiles', function(req, res, next) {
+  var files = req.getFiles('files');
+  async.map(files, function(file, cb) {
+    fs.readFile(file.path, function(err, text) {
+      if (err) return cb(err);
+      cb(null, file.safeName + ': ' + text);
+    });
+  }, function(err, results) {
+    if (err) return next(err);
+    res.send(results.join('\n'));
+  });
+});
+
