@@ -69,6 +69,14 @@ module.exports = require('circumflex').Configuration({
   },
 
   /**
+   * List of origins for Access-Control-Allow-Origin header.
+   */
+  allowedOrigins: [
+    'http://{{domain}}',
+    'https://{{domain}}'
+  ],
+
+  /**
    * Development settings will override other properties in non-production environments.
    */
   development: {
