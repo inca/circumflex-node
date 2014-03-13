@@ -87,7 +87,12 @@ module.exports = require('circumflex').Configuration({
     errorHandler: {
       dumpExceptions: true,
       showStack: true
-    }
+    },
+
+    /**
+     * Override request logging options (see [morgan](https://github.com/expressjs/morgan)).
+     */
+    loggerOptions: 'dev'
 
   }
 

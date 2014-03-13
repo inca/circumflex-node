@@ -1,6 +1,8 @@
 'use strict';
 
-var router = module.exports = require('express').Router();
+var express = require('express');
+
+var router = module.exports = new express.Router();
 
 /**
  * Main application router typically includes more specific ones.

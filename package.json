@@ -13,7 +13,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "express": "*",
+    "express": "4.x.x",
     "moment": "*",
     "multiparty": "*",
     "flatmap": "*",
@@ -33,7 +33,8 @@
     "express-session": "*",
     "body-parser": "*",
     "method-override": "*",
-    "connect-redis": "*"
+    "connect-redis": "*",
+    "errorhandler": "*"
   },
   "devDependencies": {
     "mocha": "*",
