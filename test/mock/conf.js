@@ -37,6 +37,7 @@ module.exports = new Configuration({
   assets: {
     global: [
       '/css/main.css',
+      '/js/lib.js',
       '/js/app.js'
     ]
   }

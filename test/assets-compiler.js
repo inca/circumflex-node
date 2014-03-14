@@ -23,4 +23,22 @@ describe('Assets compiler', function() {
     })
   });
 
+  it('should collect scripts', function(cb) {
+    fs.readFile(__dirname + '/mock/public/generated/global_e9e3a357.js',
+      'utf-8', function(err, text) {
+      if (err) return cb(err);
+      assert.equal(text, 'var lib = {};\nconsole.log(\'Howdy\');\n');
+      cb();
+    })
+  });
+
+  it('should collect stylesheets', function(cb) {
+    fs.readFile(__dirname + '/mock/public/generated/global_70e0fd47.css',
+      'utf-8', function(err, text) {
+      if (err) return cb(err);
+      assert.equal(text, 'html,body{margin:0;padding:0}\n');
+      cb();
+    })
+  });
+
 });
