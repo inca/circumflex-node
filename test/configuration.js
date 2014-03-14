@@ -186,4 +186,11 @@ describe('Configuration API', function() {
     });
   });
 
+  it('should leave arrays untouched', function() {
+    var conf = new Conf({
+       array: ['one', 'two', 'three']
+    });
+    assert.equal(Array.isArray(conf.array), true);
+  });
+
 });

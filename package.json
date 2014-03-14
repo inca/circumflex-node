@@ -26,7 +26,7 @@
     "debug": "*",
     "stringex": "*",
     "async": "*",
-    "optimist": "*",
+    "nomnom": "*",
     "mkdirp": "*",
     "morgan": "*",
     "cookie-parser": "*",

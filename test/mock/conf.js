@@ -32,6 +32,13 @@ module.exports = new Configuration({
 
   loggerOptions: {
     skip: function() { return true }
+  },
+
+  assets: {
+    global: [
+      '/css/main.css',
+      '/js/app.js'
+    ]
   }
 
 });
