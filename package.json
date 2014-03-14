@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "request": "*"
+    "request": "*",
+    "rimraf": "*"
   }
 }
