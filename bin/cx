@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+"use strict";
+
+var nomnom = require('nomnom')
+  , path = require('path')
+  , fs = require('fs');
+
+var Configuration = require('../lib/configuration');
+
+// Finalizer callback
+function done(err) {
+  if (err) {
+    console.trace(err);
+    process.exit(1);
+  }
+  process.exit(0);
+}
+
+/**
+ * `cx assets [path/to/conf.js]`
+ */
+nomnom.command('assets')
+  .help('Generates static assets for production.')
+  .options({
+    conf: {
+      position: 1 ,
+      help: 'Circumflex configuration module (conf.js)',
+      default: 'conf.js'
+    }
+  })
+  .callback(function(opts) {
+    if (opts.debug)
+      require('debug').enable('circumflex:*');
+    loadConf(opts.conf, function(err, conf) {
+      if (err) return done(err);
+      var compiler = require('../lib/assets-compiler');
+      compiler.compile(conf, done);
+    });
+  });
+
+/**
+ * Loads configuration module specified by `conf` parameter.
+ *
+ * @param confPath Path to configuration file, relative to `process.cwd()`
+ * @param cb Callback `function(err, conf)`
+ */
+function loadConf(confPath, cb) {
+  var fullPath = path.join(process.cwd(), confPath);
+  fs.stat(fullPath, function(err, stat) {
+    if (err) return cb(err);
+    if (!stat.isFile())
+      return cb(new Error(confPath + ' is a directory.'));
+    try {
+      var conf = require(fullPath);
+      if (conf.constructor != Configuration)
+        cb(new Error(confPath + ' must be a valid Circumflex Configuration instance.'));
+      return cb(null, conf);
+    } catch(e) {
+      cb(e);
+    }
+  });
+}
+
+nomnom.parse();
