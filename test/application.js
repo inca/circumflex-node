@@ -233,4 +233,34 @@ describe('Simple Circumflex application', function() {
 
   });
 
+  describe('emitCss', function() {
+
+    it('renders markup in development', function(cb) {
+      request.get('http://localhost:8123/emitCss',
+        function(err, res, body) {
+          if (err) return cb(err);
+          assert.equal(body,
+            '<link rel="stylesheet" href="/css/main.css" media="screen, projection"/>' +
+              '<link rel="stylesheet" href="/css/print.css" media="print"/>');
+          cb();
+        });
+    });
+
+  });
+
+  describe('emitJs', function() {
+
+    it('renders markup in development', function(cb) {
+      request.get('http://localhost:8123/emitJs',
+        function(err, res, body) {
+          if (err) return cb(err);
+          assert.equal(body,
+            '<script type="text/javascript" src="/js/lib.js"></script>' +
+              '<script type="text/javascript" src="/js/app.js"></script>');
+          cb();
+        });
+    });
+
+  });
+
 });

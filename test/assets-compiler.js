@@ -32,7 +32,7 @@ describe('Assets compiler', function() {
     })
   });
 
-  it('should collect stylesheets', function(cb) {
+  it('should group stylesheets by media', function(cb) {
     fs.readFile(__dirname + '/mock/public/generated/global_70e0fd47.css',
       'utf-8', function(err, text) {
       if (err) return cb(err);

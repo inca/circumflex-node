@@ -37,6 +37,7 @@ module.exports = new Configuration({
   assets: {
     global: [
       '/css/main.css',
+      { href: '/css/print.css', media: 'print' },
       '/js/lib.js',
       '/js/app.js'
     ]
