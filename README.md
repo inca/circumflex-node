@@ -1,6 +1,21 @@
-# Circumflex — Express-based Web Application Framework
+# Circumflex
 
-This is the internal project of EduArea LLC.
+Heavily opinionated application framework based on
+[Express 4](https://github.com/visionmedia/express)
+packed with minimal functionality required in almost
+every web application:
+
+  * flexible environment-aware configuration
+  * body parsers, method overrides, cookie parsers
+  * multipart forms parser
+  * cookie-based session support with Redis storage
+  * request parameters helpers
+  * robust authentication
+  * internationalization
+  * notices (disposable messages)
+  * static assets management
+  * request logging in development
+  * shell script for project generation and maintenance tasks
 
 ## License
 
