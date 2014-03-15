@@ -5,12 +5,13 @@ var nomnom = require('nomnom')
   , path = require('path')
   , fs = require('fs');
 
-var Configuration = require('../lib/configuration');
+var Configuration = require('../lib/configuration')
+  , Application = require('../lib/application');
 
 // Finalizer callback
 function done(err) {
   if (err) {
-    console.trace(err);
+    console.error(err.message);
     process.exit(1);
   }
   process.exit(0);
@@ -22,16 +23,16 @@ function done(err) {
 nomnom.command('assets')
   .help('Generates static assets for production.')
   .options({
-    conf: {
+    dir: {
       position: 1 ,
-      help: 'Circumflex configuration module (conf.js)',
-      default: 'conf.js'
+      help: 'Circumflex Application directory',
+      default: '.'
     }
   })
   .callback(function(opts) {
     if (opts.debug)
       require('debug').enable('circumflex:*');
-    loadConf(opts.conf, function(err, conf) {
+    loadConf(opts.dir, function(err, conf) {
       if (err) return done(err);
       var compiler = require('../lib/assets-compiler');
       compiler.compile(conf, done);
@@ -39,26 +40,71 @@ nomnom.command('assets')
   });
 
 /**
+ * `cx create <dir>`
+ */
+nomnom.command('create')
+  .help('Creates an application.')
+  .options({
+    app: {
+      position: 1 ,
+      help: 'Application name',
+      required: true
+    }
+  })
+  .callback(function(opts) {
+    createApp(opts.app, done);
+  });
+
+nomnom.parse();
+
+/**
  * Loads configuration module specified by `conf` parameter.
  *
- * @param confPath Path to configuration file, relative to `process.cwd()`
+ * @param dir Application directory containing either `app.js` or `conf.js`
  * @param cb Callback `function(err, conf)`
  */
-function loadConf(confPath, cb) {
-  var fullPath = path.join(process.cwd(), confPath);
-  fs.stat(fullPath, function(err, stat) {
-    if (err) return cb(err);
-    if (!stat.isFile())
-      return cb(new Error(confPath + ' is a directory.'));
+function loadConf(dir, cb) {
+  function _load(fullPath, cb) {
     try {
       var conf = require(fullPath);
+      if (conf.conf)
+        conf = conf.conf;
       if (conf.constructor != Configuration)
-        cb(new Error(confPath + ' must be a valid Circumflex Configuration instance.'));
+        cb(new Error(fullPath + ' must export Circumflex application or configuration.'));
+      console.log('Reading configuration from ' + fullPath);
       return cb(null, conf);
     } catch(e) {
       cb(e);
     }
+  }
+  // See if app.js or conf.js specified
+  if (['app.js', 'conf.js'].indexOf(path.basename(dir)) > -1)
+    return _load(path.join(process.cwd(), dir), cb);
+  // Scan dir for either app.js or conf.js
+  fs.readdir(path.join(process.cwd(), dir), function(err, files) {
+    if (err) return cb(err);
+    var filename = '';
+    if (files.indexOf('conf.js') > -1)
+      filename = 'conf.js';
+    else if (files.indexOf('app.js') > -1)
+      filename = 'app.js';
+    else return cb(new Error('Directory should contain app.js or conf.js'));
+    return _load(path.join(process.cwd(), dir, filename), cb);
   });
 }
 
-nomnom.parse();
+/**
+ * Creates an application from archetype.
+ *
+ * @param appName Application name
+ * @param cb Callback function
+ */
+function createApp(appName, cb) {
+  var target = path.join(process.cwd(), appName);
+  var archetype = path.join(__dirname, '../archetype');
+  fs.mkdir(target, function(err) {
+    if (err) return cb(err);
+    // TODO
+    cb();
+  });
+}

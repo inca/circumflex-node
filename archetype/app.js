@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = require('circumflex').Configuration({
+var Application = require('circumflex').Application;
+
+module.exports = new Application({
 
   /**
    * Directories are resolved relative to this directory.
@@ -22,18 +24,18 @@ module.exports = require('circumflex').Configuration({
    */
   domain: {
     development: '127.0.0.1',
-    production: '{{domain}}'
+    production: '{{name}}'
   },
 
   /**
    * Domain for serving static files.
    */
-  staticDomain: 'static.{{domain}}',
+  staticDomain: 'static.{{name}}',
 
   /**
    * Domain for security-sensitive stuff.
    */
-  secureDomain: 'secure.{{domain}}',
+  secureDomain: 'secure.{{name}}',
 
   /**
    * Cookies configuration.
@@ -72,8 +74,8 @@ module.exports = require('circumflex').Configuration({
    * List of origins for Access-Control-Allow-Origin header.
    */
   allowedOrigins: [
-    'http://{{domain}}',
-    'https://{{domain}}'
+    'http://{{name}}',
+    'https://{{name}}'
   ],
 
   /**
@@ -95,6 +97,5 @@ module.exports = require('circumflex').Configuration({
     loggerOptions: 'dev'
 
   }
-
 
 });

@@ -15,6 +15,7 @@ every web application:
   * notices (disposable messages)
   * static assets management
   * request logging in development
+  * CORS headers with origins whitelist
   * shell script for project generation and maintenance tasks
 
 ## License

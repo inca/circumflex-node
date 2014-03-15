@@ -1,5 +1,5 @@
 'use strict';
 
-var conf = require('./conf');
+var Application = require('../../lib/application');
 
-module.exports = new require('../../lib/application')(conf);
+module.exports = new Application(require('./conf'));
