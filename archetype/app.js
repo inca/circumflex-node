@@ -2,7 +2,7 @@
 
 var Application = require('circumflex').Application;
 
-module.exports = new Application({
+var app = module.exports = new Application({
 
   /**
    * Directories are resolved relative to this directory.
@@ -12,7 +12,7 @@ module.exports = new Application({
   /**
    * Port for the application to listen on.
    */
-  port: 8123,
+  port: '<%= port %>',
 
   /**
    * Main application router.
@@ -24,18 +24,18 @@ module.exports = new Application({
    */
   domain: {
     development: '127.0.0.1',
-    production: '{{name}}'
+    production: '<%= appName %>'
   },
 
   /**
    * Domain for serving static files.
    */
-  staticDomain: 'static.{{name}}',
+  staticDomain: 'static.<%= appName %>',
 
   /**
    * Domain for security-sensitive stuff.
    */
-  secureDomain: 'secure.{{name}}',
+  secureDomain: 'secure.<%= appName %>',
 
   /**
    * Cookies configuration.
@@ -74,8 +74,8 @@ module.exports = new Application({
    * List of origins for Access-Control-Allow-Origin header.
    */
   allowedOrigins: [
-    'http://{{name}}',
-    'https://{{name}}'
+    'http://<%= appName %>',
+    'https://<%= appName %>'
   ],
 
   /**
@@ -99,3 +99,13 @@ module.exports = new Application({
   }
 
 });
+
+/**
+ * Add shutdown hooks to exit gracefully.
+ */
+app.onShutdown(function(next) {
+  // TODO add code to close all database connections
+  console.log('Shutting down...');
+  next();
+});
+

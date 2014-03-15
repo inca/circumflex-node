@@ -1,0 +1,9 @@
+{
+  "name": "<%= appName %>",
+  "version": "0.0.0",
+  "description": "TODO add application description",
+  "dependencies": {
+    "circumflex": "*",
+    "express": "4.x.x"
+  }
+}

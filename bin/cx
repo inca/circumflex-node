@@ -3,7 +3,9 @@
 
 var nomnom = require('nomnom')
   , path = require('path')
-  , fs = require('fs');
+  , fs = require('fs')
+  , async = require('async')
+  , _ = require('underscore');
 
 var Configuration = require('../lib/configuration')
   , Application = require('../lib/application');
@@ -11,7 +13,7 @@ var Configuration = require('../lib/configuration')
 // Finalizer callback
 function done(err) {
   if (err) {
-    console.error(err.message);
+    console.trace(err.message);
     process.exit(1);
   }
   process.exit(0);
@@ -45,14 +47,19 @@ nomnom.command('assets')
 nomnom.command('create')
   .help('Creates an application.')
   .options({
-    app: {
+    appName: {
       position: 1 ,
       help: 'Application name',
       required: true
+    },
+    port: {
+      abbr: 'p',
+      help: 'HTTP for the application to listen on',
+      default: 8123
     }
   })
   .callback(function(opts) {
-    createApp(opts.app, done);
+    createApp(opts, done);
   });
 
 nomnom.parse();
@@ -96,15 +103,44 @@ function loadConf(dir, cb) {
 /**
  * Creates an application from archetype.
  *
- * @param appName Application name
+ * @param opts Parsed CLI options
  * @param cb Callback function
  */
-function createApp(appName, cb) {
+function createApp(opts, cb) {
+
+  var appName = opts.appName
+    , port = opts.port;
+
+  function _copy(src, dst, cb) {
+    fs.stat(src, function(err, stat) {
+      if (err) return cb(err);
+      if (stat.isDirectory()) {
+        return fs.mkdir(dst, function(err) {
+          if (err) return cb(err);
+          fs.readdir(src, function(err, files) {
+            if (err) return cb(err);
+            async.each(files, function(file, cb) {
+              _copy(path.join(src, file), path.join(dst, file), cb);
+            }, cb);
+          });
+        });
+      } else if (stat.isFile())
+        _compile(src, dst, cb);
+    });
+  }
+
+  function _compile(src, dst, cb) {
+    fs.readFile(src, 'utf-8', function(err, text) {
+      if (err) return cb(err);
+      var compiled = _.template(text)({
+        appName: appName,
+        port: port
+      });
+      fs.writeFile(dst, compiled, 'utf-8', cb);
+    });
+  }
+
   var target = path.join(process.cwd(), appName);
   var archetype = path.join(__dirname, '../archetype');
-  fs.mkdir(target, function(err) {
-    if (err) return cb(err);
-    // TODO
-    cb();
-  });
+  _copy(archetype, target, cb);
 }

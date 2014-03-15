@@ -165,24 +165,24 @@ describe('Configuration API', function() {
 
   it('should deflate nested objects', function() {
     var conf = new Conf({
-      redis: {
+      test: {
         host: {
-          development: 'redis.sandbox',
-          production: 'redis.live'
+          development: 'test.sandbox',
+          production: 'test.live'
         }
       }
     });
-    assert.equal(conf.redis.host, 'redis.sandbox');
+    assert.equal(conf.test.host, 'test.sandbox');
     withProduction(function() {
       var conf = new Conf({
-        redis: {
+        test: {
           host: {
-            development: 'redis.sandbox',
-            production: 'redis.live'
+            development: 'test.sandbox',
+            production: 'test.live'
           }
         }
       });
-      assert.equal(conf.redis.host, 'redis.live');
+      assert.equal(conf.test.host, 'test.live');
     });
   });
 

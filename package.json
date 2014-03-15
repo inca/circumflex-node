@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/inca/circumflex-node/issues"
   },
-  "main": "lib/index.js",
+  "main": "./lib/index",
   "dependencies": {
     "express": "4.x.x",
     "moment": "*",
@@ -29,6 +29,7 @@
     "nomnom": "*",
     "mkdirp": "*",
     "morgan": "*",
+    "redis": "*",
     "cookie-parser": "*",
     "express-session": "*",
     "body-parser": "*",
