@@ -41,6 +41,8 @@ module.exports = new Configuration({
       '/js/lib.js',
       '/js/app.js'
     ]
-  }
+  },
+
+  silent: true
 
 });

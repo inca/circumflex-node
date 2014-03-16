@@ -15,8 +15,8 @@ describe('Application API', function() {
   });
 
   it('should accept configuration or plain options object', function() {
-    assert.equal(new Application({ port: 1234 }).conf.port, 1234);
-    assert.equal(new Application(new Configuration({ port: 1234 })).conf.port, 1234);
+    assert.equal(new Application({ port: 1234, silent: true }).conf.port, 1234);
+    assert.equal(new Application(new Configuration({ port: 1234, silent: true })).conf.port, 1234);
   });
 
   it('should extend Express application', function() {
