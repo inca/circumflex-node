@@ -70,13 +70,13 @@ describe('Configuration API', function() {
     // The defaults are `http://127.0.0.1`
     var conf = new Conf();
     assert.equal(conf.origin, 'http://127.0.0.1');
-    // Overridden by `domain`
-    conf = new Conf({ domain: 'myapp.com' });
+    // Overridden by `host`
+    conf = new Conf({ host: 'myapp.com' });
     assert.equal(conf.origin, 'http://myapp.com');
     // Overridden by env variable
-    withEnv({ DOMAIN: 'mydomain.com' }, function() {
-      conf = new Conf({ domain: 'myapp.com' });
-      assert.equal(conf.origin, 'http://mydomain.com');
+    withEnv({ HOST: 'myhost.com' }, function() {
+      conf = new Conf({ host: 'myapp.com' });
+      assert.equal(conf.origin, 'http://myhost.com');
     });
   });
 
@@ -84,31 +84,31 @@ describe('Configuration API', function() {
     // The defaults are `//127.0.0.1`
     var conf = new Conf();
     assert.equal(conf.staticOrigin, '//127.0.0.1');
-    // `domain` is used if `staticDomain` is not specified
-    conf = new Conf({ domain: 'myapp.com'});
+    // `host` is used if `staticHost` is not specified
+    conf = new Conf({ host: 'myapp.com'});
     assert.equal(conf.staticOrigin, '//myapp.com');
-    // `staticDomain` overrides `domain`
-    conf = new Conf({ domain: 'myapp.com', staticDomain: 'static.myapp' });
+    // `staticHost` overrides `host`
+    conf = new Conf({ host: 'myapp.com', staticHost: 'static.myapp' });
     assert.equal(conf.staticOrigin, '//static.myapp');
     // development conf overrides production
     conf = new Conf({
-      domain: 'myapp.com',
-      staticDomain: 'static.myapp',
+      host: 'myapp.com',
+      staticHost: 'static.myapp',
       development: {
-        staticDomain: 'static.myapp.dev'
+        staticHost: 'static.myapp.dev'
       }
     });
     assert.equal(conf.staticOrigin, '//static.myapp.dev');
     // finally, env variable overrides 'em all
-    withEnv({ 'STATIC_DOMAIN': 'static.domain' }, function() {
+    withEnv({ 'STATIC_HOST': 'static.host' }, function() {
       conf = new Conf({
-        domain: 'myapp.com',
-        staticDomain: 'static.myapp',
+        host: 'myapp.com',
+        staticHost: 'static.myapp',
         development: {
-          staticDomain: 'static.myapp.dev'
+          staticHost: 'static.myapp.dev'
         }
       });
-      assert.equal(conf.staticOrigin, '//static.domain');
+      assert.equal(conf.staticOrigin, '//static.host');
     });
   });
 
@@ -116,31 +116,31 @@ describe('Configuration API', function() {
     // The defaults are `https://127.0.0.1`
     var conf = new Conf();
     assert.equal(conf.secureOrigin, 'https://127.0.0.1');
-    // `domain` is used if `secureDomain` is not specified
-    conf = new Conf({ domain: 'myapp.com'});
+    // `host` is used if `secureHost` is not specified
+    conf = new Conf({ host: 'myapp.com'});
     assert.equal(conf.secureOrigin, 'https://myapp.com');
-    // `secureDomain` overrides `domain`
-    conf = new Conf({ domain: 'myapp.com', secureDomain: 'secure.myapp' });
+    // `secureHost` overrides `host`
+    conf = new Conf({ host: 'myapp.com', secureHost: 'secure.myapp' });
     assert.equal(conf.secureOrigin, 'https://secure.myapp');
     // development conf overrides production
     conf = new Conf({
-      domain: 'myapp.com',
-      secureDomain: 'secure.myapp',
+      host: 'myapp.com',
+      secureHost: 'secure.myapp',
       development: {
-        secureDomain: 'secure.myapp.dev'
+        secureHost: 'secure.myapp.dev'
       }
     });
     assert.equal(conf.secureOrigin, 'https://secure.myapp.dev');
     // finally, env variable overrides 'em all
-    withEnv({ 'SECURE_DOMAIN': 'secure.domain' }, function() {
+    withEnv({ 'SECURE_HOST': 'secure.host' }, function() {
       conf = new Conf({
-        domain: 'myapp.com',
-        secureDomain: 'secure.myapp',
+        host: 'myapp.com',
+        secureHost: 'secure.myapp',
         development: {
-          secureDomain: 'secure.myapp.dev'
+          secureHost: 'secure.myapp.dev'
         }
       });
-      assert.equal(conf.secureOrigin, 'https://secure.domain');
+      assert.equal(conf.secureOrigin, 'https://secure.host');
     });
   });
 

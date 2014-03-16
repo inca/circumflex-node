@@ -20,22 +20,28 @@ var app = module.exports = new Application({
   router: require('./router/index'),
 
   /**
-   * Main application domain.
+   * Main application host.
    */
-  domain: {
-    development: '127.0.0.1',
+  host: {
+    development: '127.0.0.1:<%= port %>',
     production: '<%= appName %>'
   },
 
   /**
-   * Domain for serving static files.
+   * Host for serving static files.
    */
-  staticDomain: 'static.<%= appName %>',
+  staticHost: {
+    development: '127.0.0.1:<%= port %>',
+    production: 'static.<%= appName %>'
+  },
 
   /**
-   * Domain for security-sensitive stuff.
+   * Host for security-sensitive stuff.
    */
-  secureDomain: 'secure.<%= appName %>',
+  secureHost: {
+    development: '127.0.0.1:<%= port %>',
+    production: 'secure.<%= appName %>'
+  },
 
   /**
    * Cookies configuration.

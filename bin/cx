@@ -142,5 +142,11 @@ function createApp(opts, cb) {
 
   var target = path.join(process.cwd(), appName);
   var archetype = path.join(__dirname, '../archetype');
-  _copy(archetype, target, cb);
+  _copy(archetype, target, function(err) {
+    if (err) return cb(err);
+    console.log('\n\nApplication created successfully.\n\n');
+    console.log('1. Go to your project\n\n\tcd %s\n\n', appName);
+    console.log('2. Install dependencies\n\n\tnpm install\n\n');
+    console.log('3. Run your application\n\n\tnode run\n\n');
+  });
 }

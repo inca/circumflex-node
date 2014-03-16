@@ -10,11 +10,11 @@ module.exports = new Configuration({
 
   router: require('./router'),
 
-  domain: 'circumflexapp.dev',
+  host: 'circumflexapp.dev',
 
-  staticDomain: 'static.circumflexapp.dev',
+  staticHost: 'static.circumflexapp.dev',
 
-  secureDomain: 'secure.circumflexapp.dev',
+  secureHost: 'secure.circumflexapp.dev',
 
   cookies: {
     secret: 'USE PASSPHRASE TO PROTECT YOUR COOKIES'

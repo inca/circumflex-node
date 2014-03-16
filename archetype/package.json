@@ -4,6 +4,8 @@
   "description": "TODO add application description",
   "dependencies": {
     "circumflex": "*",
-    "express": "4.x.x"
+    "express": "4.x.x",
+    "jade": "*",
+    "stylus": "*"
   }
 }
