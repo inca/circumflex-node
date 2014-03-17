@@ -76,7 +76,7 @@ function loadConf(dir, cb) {
       var conf = require(fullPath);
       if (conf.conf)
         conf = conf.conf;
-      if (conf.constructor != Configuration)
+      if (conf.__signature != 'Circumflex Configuration')
         cb(new Error(fullPath + ' must export Circumflex application or configuration.'));
       console.log('Reading configuration from ' + fullPath);
       return cb(null, conf);

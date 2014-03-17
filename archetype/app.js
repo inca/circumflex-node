@@ -85,6 +85,16 @@ var app = module.exports = new Application({
   ],
 
   /**
+   * List CSS and JS files for use in your application
+   */
+  assets: {
+    'global': [
+      '/css/main.css',
+      '/js/app.js'
+    ]
+  },
+
+  /**
    * Development settings will override other properties in non-production environments.
    */
   development: {
@@ -111,7 +121,6 @@ var app = module.exports = new Application({
  */
 app.onShutdown(function(next) {
   // TODO add code to close all database connections
-  console.log('Shutting down...');
   next();
 });
 

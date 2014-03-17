@@ -41,4 +41,13 @@ describe('Assets compiler', function() {
     })
   });
 
+  it('should generate assets.json', function(cb) {
+    fs.readFile(__dirname + '/mock/public/assets.json',
+      'utf-8', function(err, text) {
+      if (err) return cb(err);
+      assert.equal(text, '{"global":{"js":[{"src":"/generated/global_e9e3a357.js"}],"css":[{"href":"/generated/global_70e0fd47.css","media":"screen, projection"},{"href":"/generated/global_844d131f.css","media":"print"}]}}');
+      cb();
+    })
+  });
+
 });
