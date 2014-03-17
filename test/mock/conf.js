@@ -1,6 +1,12 @@
 'use strict';
 
-var Configuration = require('../../lib/configuration');
+var Configuration = require('../../lib/configuration')
+  , _ = require('underscore');
+
+var users = [
+  { id: 'alice', name: 'Alice' },
+  { id: 'bob', name: 'Bob'}
+];
 
 module.exports = new Configuration({
 
@@ -23,6 +29,17 @@ module.exports = new Configuration({
   session: {
     ttl: 600,  // session timeout in seconds
     secret: 'USE PASSPHRASE TO PROTECT YOUR SESSIONS'
+  },
+
+  auth: {
+    findUserById: function(id, cb) {
+      var u = _(users).findWhere({ id: id });
+      cb(null, u);
+    },
+    getUserId: function(user) {
+      return user.id
+    },
+    defaultLocation: '/protected'
   },
 
   errorHandler: {

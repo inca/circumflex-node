@@ -263,4 +263,33 @@ describe('Simple Circumflex application', function() {
 
   });
 
+  describe('auth middleware', function() {
+
+    it('detects unauthenticated users', function(cb) {
+      request.get('http://localhost:8123/protected',
+        function(err, res, body) {
+          if (err) return cb(err);
+          assert.equal(body, 'Authenticate, please.');
+          cb();
+        });
+    });
+
+    it('lets users authenticate', function(cb) {
+      var jar = request.jar();
+      request.post({
+        url: 'http://localhost:8123/login',
+        followAllRedirects: true,
+        form: {
+          user: 'alice'
+        },
+        jar: jar
+      }, function(err, res, body) {
+        if (err) return cb(err);
+        assert.equal(body, 'Hi, Alice');
+        cb();
+      });
+    });
+
+  });
+
 });

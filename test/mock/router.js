@@ -79,3 +79,24 @@ router.get('/emitJs', function(req, res, next) {
   res.send(res.locals.emitJs('global'));
 });
 
+router.get('/protected', function(req, res, next) {
+  if (!req.principal) {
+    req.rememberLocation();
+    res.redirect('/login');
+  } else res.send('Hi, ' + req.principal.name);
+});
+
+router.get('/login', function(req, res, next) {
+  res.send('Authenticate, please.');
+});
+
+router.post('/login', function(req, res, next) {
+  req.conf.auth.findUserById(req.getString('user'), function(err, user) {
+    if (err) return next(err);
+    req.login(user, function(err) {
+      if (err) return next(err);
+      res.redirect(req.lastLocation());
+    });
+  });
+});
+
