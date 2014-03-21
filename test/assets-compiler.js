@@ -4,7 +4,7 @@ var assert = require('assert')
   , fs = require('fs')
   , compiler = require('../lib/assets-compiler');
 
-var conf = require('./mock/conf');
+var conf = require('./mock/app').conf;
 
 describe('Assets compiler', function() {
 
