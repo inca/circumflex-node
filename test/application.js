@@ -31,15 +31,10 @@ describe('Application API', function() {
 
 describe('Simple Circumflex application', function() {
 
-  var app = require('./mock/app')
-    , server = http.createServer(app);
+  var app = require('./mock/app');
 
   before(function(cb) {
-    server.listen(app.conf.port, cb);
-  });
-
-  after(function(cb) {
-    server.close(cb);
+    app.run(cb);
   });
 
   it('should respond to generic routes', function(cb) {
