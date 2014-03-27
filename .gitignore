@@ -1,4 +1,5 @@
 # IntelliJ IDEA
+
 .idea/
 *.ipr
 *.iml
@@ -23,3 +24,9 @@ nohup.out
 # NodeJS
 
 node_modules/
+
+# Misc
+
+test/mock/public/assets.json
+
+
