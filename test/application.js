@@ -11,7 +11,7 @@ var Application = require('../lib/application')
 describe('Application API', function() {
 
   it('is a function', function() {
-    assert.equal(typeof new Application(), 'function');
+    assert.equal(typeof new Application({ silent: true }), 'function');
   });
 
   it('should accept configuration or plain options object', function() {
@@ -20,7 +20,7 @@ describe('Application API', function() {
   });
 
   it('should extend Express application', function() {
-    var app = new Application();
+    var app = new Application({ silent: true });
     var methods = ['use', 'handle', 'get', 'post', 'put', 'delete', 'all'];
     methods.forEach(function(method) {
       assert.equal(typeof app[method], 'function');

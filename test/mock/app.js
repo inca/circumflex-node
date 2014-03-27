@@ -14,8 +14,6 @@ module.exports = new Application({
 
   port: 8123,
 
-  router: require('./router'),
-
   host: 'circumflexapp.dev',
 
   staticHost: 'static.circumflexapp.dev',

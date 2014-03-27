@@ -15,11 +15,6 @@ var app = module.exports = new Application({
   port: '<%= port %>',
 
   /**
-   * Main application router.
-   */
-  router: require('./router/index'),
-
-  /**
    * Main application host.
    */
   host: {
