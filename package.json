@@ -1,6 +1,6 @@
 {
   "name": "circumflex",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Express-based Web Application Framework",
   "keywords": [ "web", "framework" ],
   "repository": {
