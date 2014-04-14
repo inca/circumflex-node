@@ -23,19 +23,11 @@ var app = module.exports = new Application({
   },
 
   /**
-   * Host for serving static files.
+   * Base URL for static files.
    */
-  staticHost: {
-    development: '127.0.0.1:<%= port %>',
-    production: 'static.<%= appName %>'
-  },
-
-  /**
-   * Host for security-sensitive stuff.
-   */
-  secureHost: {
-    development: '127.0.0.1:<%= port %>',
-    production: 'secure.<%= appName %>'
+  staticOrigin: {
+    development: '',
+    production: '//static.<%= appName %>'
   },
 
   /**

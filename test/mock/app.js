@@ -16,9 +16,10 @@ module.exports = new Application({
 
   host: 'circumflexapp.dev',
 
-  staticHost: 'static.circumflexapp.dev',
-
-  secureHost: 'secure.circumflexapp.dev',
+  staticOrigin: {
+    production: '//static.circumflexapp.dev',
+    development: ''
+  },
 
   cookies: {
     secret: 'USE PASSPHRASE TO PROTECT YOUR COOKIES'
