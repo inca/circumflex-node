@@ -42,7 +42,8 @@
     "body-parser": "*",
     "method-override": "*",
     "connect-redis": "*",
-    "errorhandler": "*"
+    "errorhandler": "*",
+    "uglify-js": "*"
   },
   "devDependencies": {
     "mocha": "*",
