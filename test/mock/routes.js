@@ -69,6 +69,10 @@ $.post('/getFiles', function(req, res, next) {
   });
 });
 
+$.get('/getPath/*', function(req, res, next) {
+  res.send(req.getPath(0));
+});
+
 $.get('/emitCss', function(req, res, next) {
   res.send(res.locals.emitCss('global'));
 });

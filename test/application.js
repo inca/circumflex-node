@@ -228,6 +228,19 @@ describe('Simple Circumflex application', function() {
 
   });
 
+  describe('getPath', function() {
+
+    it('gets rid of dots in URL', function(cb) {
+      request.get('http://localhost:8123/getPath/../../../index.html',
+        function(err, res, body) {
+          if (err) return cb(err);
+          assert.equal(body, 'index.html');
+          cb();
+        });
+    });
+
+  });
+
   describe('emitCss', function() {
 
     it('renders markup in development', function(cb) {
