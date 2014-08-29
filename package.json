@@ -38,12 +38,12 @@
     "morgan": "*",
     "redis": "*",
     "cookie-parser": "*",
-    "express-session": "*",
     "body-parser": "*",
     "method-override": "*",
     "connect-redis": "*",
     "errorhandler": "*",
-    "uglify-js": "*"
+    "uglify-js": "*",
+    "circumflex-session": "*"
   },
   "devDependencies": {
     "mocha": "*",
