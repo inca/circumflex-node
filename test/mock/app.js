@@ -41,11 +41,6 @@ module.exports = new Application({
     defaultLocation: '/protected'
   },
 
-  errorHandler: {
-    dumpExceptions: true,
-    showStack: true
-  },
-
   loggerOptions: {
     skip: function() { return true }
   },
