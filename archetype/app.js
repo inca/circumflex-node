@@ -44,7 +44,7 @@ var app = module.exports = new Application({
    * information.
    */
   session: {
-    ttl: 600,  // session timeout in seconds
+    tti: 600,  // session timeout in seconds
     secret: 'USE PASSPHRASE TO PROTECT YOUR SESSIONS'
   },
 
