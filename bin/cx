@@ -36,7 +36,7 @@ nomnom.command('assets')
       require('debug').enable('circumflex:*');
     loadConf(opts.dir, function(err, conf) {
       if (err) return done(err);
-      var compiler = require('../lib/assets-compiler');
+      var compiler = require('circumflex-assets').AssetsCompiler;
       compiler.compile(conf, done);
     });
   });
