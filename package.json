@@ -41,7 +41,8 @@
     "circumflex-configuration": "*",
     "circumflex-request": "*",
     "circumflex-cors": "*",
-    "circumflex-auth": "*"
+    "circumflex-auth": "*",
+    "circumflex-assets": "*"
   },
   "devDependencies": {
     "mocha": "*",
