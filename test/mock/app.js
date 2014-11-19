@@ -30,17 +30,6 @@ module.exports = new Application({
     secret: 'USE PASSPHRASE TO PROTECT YOUR SESSIONS'
   },
 
-  auth: {
-    findUserById: function(id, cb) {
-      var u = _(users).findWhere({ id: id });
-      cb(null, u);
-    },
-    getUserId: function(user) {
-      return user.id
-    },
-    defaultLocation: '/protected'
-  },
-
   loggerOptions: {
     skip: function() { return true }
   },
