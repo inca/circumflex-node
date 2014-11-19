@@ -79,18 +79,6 @@ var app = module.exports = new Application({
       '/css/main.css',
       '/js/app.js'
     ]
-  },
-
-  /**
-   * Development settings will override other properties in non-production environments.
-   */
-  development: {
-
-    /**
-     * Override request logging options (see [morgan](https://github.com/expressjs/morgan)).
-     */
-    loggerOptions: 'dev'
-
   }
 
 });
