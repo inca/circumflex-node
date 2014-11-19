@@ -6,7 +6,7 @@ var assert = require('assert')
   , fs = require('fs');
 
 var Application = require('../lib/application')
-  , Configuration = require('../lib/configuration');
+  , Configuration = require('circumflex-configuration');
 
 describe('Application API', function() {
 

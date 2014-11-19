@@ -43,7 +43,8 @@
     "connect-redis": "*",
     "errorhandler": "*",
     "uglify-js": "*",
-    "circumflex-session": "*"
+    "circumflex-session": "*",
+    "circumflex-configuration": "*"
   },
   "devDependencies": {
     "mocha": "*",

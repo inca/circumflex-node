@@ -7,7 +7,7 @@ var nomnom = require('nomnom')
   , async = require('async')
   , _ = require('underscore');
 
-var Configuration = require('../lib/configuration')
+var Configuration = require('circumflex-configuration')
   , Application = require('../lib/application');
 
 // Finalizer callback
