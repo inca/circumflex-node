@@ -5,6 +5,13 @@
   "private": "true",
   "dependencies": {
     "circumflex": "*",
+    "circumflex-configuration": "*",
+    "circumflex-request": "*",
+    "circumflex-session": "*",
+    "circumflex-notices": "*",
+    "circumflex-cors": "*",
+    "circumflex-auth": "*",
+    "circumflex-assets": "*",
     "express": "4.x.x",
     "jade": "*",
     "stylus": "*"

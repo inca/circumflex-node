@@ -37,12 +37,7 @@
     "connect-redis": "*",
     "errorhandler": "*",
     "uglify-js": "*",
-    "circumflex-session": "*",
-    "circumflex-configuration": "*",
-    "circumflex-request": "*",
-    "circumflex-cors": "*",
-    "circumflex-auth": "*",
-    "circumflex-assets": "*"
+    "circumflex-configuration": "*"
   },
   "devDependencies": {
     "mocha": "*",
