@@ -37,7 +37,7 @@
     "connect-redis": "*",
     "errorhandler": "*",
     "uglify-js": "*",
-    "circumflex-configuration": "*",
+    "iconf": "*",
     "circumflex-assets": "*"
   },
   "devDependencies": {
