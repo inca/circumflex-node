@@ -38,6 +38,9 @@
     "errorhandler": "*",
     "uglify-js": "*",
     "iconf": "*",
+    "expressr": "*",
+    "alt-session": "*",
+    "alt-auth": "*",
     "circumflex-assets": "*"
   },
   "devDependencies": {
