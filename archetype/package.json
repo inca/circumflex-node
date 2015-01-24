@@ -5,13 +5,13 @@
   "private": "true",
   "dependencies": {
     "circumflex": "*",
-    "circumflex-configuration": "*",
-    "circumflex-request": "*",
-    "circumflex-session": "*",
     "circumflex-notices": "*",
     "circumflex-cors": "*",
-    "circumflex-auth": "*",
     "circumflex-assets": "*",
+    "iconf": "*",
+    "expressr": "*",
+    "alt-session": "*",
+    "alt-auth": "*",
     "express": "4.x.x",
     "jade": "*",
     "stylus": "*"
